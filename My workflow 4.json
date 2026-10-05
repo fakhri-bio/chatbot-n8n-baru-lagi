@@ -1,0 +1,159 @@
+{
+  "name": "My workflow 4",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4d662b39-c9c2-4779-9409-30e2d777e584",
+      "name": "When chat message received",
+      "webhookId": "b498d442-f5f6-428d-9b15-06d3084b8b4c"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistantKamu adalah asisten pelatihan NF Academy. Jawablah pertanyaan tentang produk, deskripsi/uraian, biaya/harga, dan tempat/lokasi pelatihan sesuai dengan informasi yang tersedia dalam Tool 'Get row(s) in sheet in Google Sheets'. Jika kamu tidak menemukan informasi produk, harga, dan tempat pelatihan, jangan mengarang jawaban. Berikan jawaban: 'Maaf, saya belum memiliki data yang Anda minta. Silakan lihat web nfacademy.id'."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "684bf666-de9e-409f-841f-8990c88c8044",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        144,
+        176
+      ],
+      "id": "433f5a41-26a4-4c11-83e8-75d62b77ecf6",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        304,
+        256
+      ],
+      "id": "f66e8517-e92a-4e04-939e-da62dede6a2c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1uHCO1bmZfqopgVBm-J7p6G7p40NFYLoSD9yT0YpQehQ",
+          "mode": "list",
+          "cachedResultName": "data kebutuhan untuk tugas 2_n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uHCO1bmZfqopgVBm-J7p6G7p40NFYLoSD9yT0YpQehQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uHCO1bmZfqopgVBm-J7p6G7p40NFYLoSD9yT0YpQehQ/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        480,
+        192
+      ],
+      "id": "b8f11d57-94af-435b-a504-11b9de9d2e4f",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "cW88RkHObF7RswMB",
+          "name": "Google Sheets account 3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6ba5bf1e-35c5-4a42-8c9f-1b21ed75bff4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fea081ddeb88ad1c4c664b740be566123bf365d98e1d4c37dbd674bc9e423665"
+  },
+  "nodeGroups": [],
+  "id": "vUn1AhE45RGkGjrS",
+  "tags": []
+}
